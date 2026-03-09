@@ -13,13 +13,16 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+
     steps:
       - name: Check out code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
 
       - name: Check for insecure actions
         run: |
           if grep -q "uses: dduzgun-security/secure-code-game-action@" $GITHUB_WORKSPACE/.github/workflows/jarvis-code.yml; then
             echo "Insecure action detected. Please remove it from your workflow."
             exit 1
+          else
+            echo "No insecure actions found ✅"
           fi
